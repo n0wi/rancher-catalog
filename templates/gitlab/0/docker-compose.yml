@@ -1,0 +1,73 @@
+redis:
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  stdin_open: true
+  command:
+  - --loglevel
+  - warning
+  image: redis:alpine
+  volumes:
+  - gitlab-redis:/var/lib/redis
+  - gitlab-redis-data:/data
+  volume_driver: convoy-nfs
+
+gitlab:
+  dns_search:
+  - ${dns_search}
+  environment:
+    DB_ADAPTER: postgres
+    DB_HOST: postgres
+    DB_PORT: '5432'
+    DB_USER: gitlab
+    DB_PASSWORD: ${db_password}
+    DB_NAME: gitlabhq_production
+    REDIS_HOST: redis
+    REDIS_PORT: '6379'
+    TZ: Europe/Berlin
+    GITLAB_TIMEZONE: Berlin
+    GITLAB_HTTPS: 'true'
+    SSL_SELF_SIGNED: 'true'
+    GITLAB_HOST: localhost
+    GITLAB_PORT: '10443'
+    GITLAB_SSL_PORT: '10022'
+    GITLAB_RELATIVE_URL_ROOT: ''
+    GITLAB_SECRETS_DB_KEY_BASE: ${secrets_db_key_base}
+    GITLAB_OMNIBUS_CONFIG: |
+      # Add any gitlab.rb configuration here, each on its own line
+  domainname: ${gitlab_hostname}
+  labels:
+    io.rancher.container.pull_image: always
+    gitlab.app: '1'
+    io.rancher.scheduler.affinity.container_label_soft: gitlab.postgres.db=1
+  tty: true
+  stdin_open: true
+  dns:
+  - ${dns_server_primary}
+  - ${dns_server_secondary}
+  image: gitlab/gitlab-ce:8.10.6-ce.0
+  links:
+  - redis:redis
+  - postgres:postgres
+  volumes:
+  - gitlab-config:/etc/gitlab
+  - gitlab-logs:/var/log/gitlab
+  - gitlab-data:/var/opt/gitlab
+  volume_driver: convoy-nfs
+
+postgres:
+  environment:
+    DB_USER: gitlab
+    DB_PASS: 'zc+7qNyhukKmt9c1O+lv74D5OVCYiQcf/SvvajDyTO4='
+    DB_NAME: gitlabhq_production
+    DB_EXTENSION: pg_trgm
+  labels:
+    io.rancher.container.pull_image: always
+    gitlab.postgres.db: '1'
+  tty: true
+  stdin_open: true
+  image: postgres:9
+  volumes:
+  - gitlab-postgres:/var/lib/postgresql
+  - gitlab-postgres-data:/var/lib/postgresql/data
+  volume_driver: convoy-nfs

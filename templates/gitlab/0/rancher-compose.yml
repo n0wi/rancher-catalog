@@ -1,0 +1,78 @@
+.catalog:
+  name: "Gitlab"
+  version: "8.10.6-ce.0"
+  description: |
+    Gitlab CE is a free GitHub alternative
+  maintainer: Martin Nowicki <>
+  uuid: gitlab-0
+  questions:
+    - variable: "gitlab_hostname"
+      description: "Gitlab hostname"
+      label: "Hostname:"
+      required: true
+      default: "git.example.com"
+      type: "string"
+    - variable: "dns_search"
+      description: "DNS search"
+      label: "DNS search:"
+      required: false
+      default:
+      type: "string"
+    - variable: "db_password"
+      description: "Password for Postgres"
+      label: "Password"
+      required: false
+      default: "password"
+      type: "string"
+    - variable: "dns_server_primary"
+      description: "Primary DNS server"
+      label: "DNS server:"
+      required: false
+      default:
+      type: "string"
+    - variable: "dns_server_secondary"
+      description: "Secondary DNS server"
+      label: "DNS server:"
+      required: false
+      default:
+      type: "string"
+    - variable: "secrets_db_key_base"
+      description: "GITLAB_SECRETS_DB_KEY_BASE"
+      label: "GITLAB_SECRETS_DB_KEY_BASE"
+      required: true
+      default:
+
+
+redis:
+  scale: 1
+  retain_ip: true
+  health_check:
+    port: 6379
+    interval: 30000
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    healthy_threshold: 2
+
+gitlab:
+  scale: 1
+  retain_ip: true
+  health_check:
+    port: 80
+    interval: 30000
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    healthy_threshold: 2
+
+postgres:
+  scale: 1
+  health_check:
+    port: 5432
+    interval: 30000
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000

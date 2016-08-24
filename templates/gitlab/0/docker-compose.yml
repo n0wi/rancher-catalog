@@ -45,7 +45,7 @@ gitlab:
   dns:
   - ${dns_server_primary}
   - ${dns_server_secondary}
-  image: gitlab/gitlab-ce:8.10.6-ce.0
+  image: gitlab/gitlab-ce:8.11.0-ce.1
   links:
   - redis:redis
   - postgres:postgres
@@ -58,7 +58,7 @@ gitlab:
 postgres:
   environment:
     DB_USER: gitlab
-    DB_PASS: 'zc+7qNyhukKmt9c1O+lv74D5OVCYiQcf/SvvajDyTO4='
+    DB_PASS: ${db_password}
     DB_NAME: gitlabhq_production
     DB_EXTENSION: pg_trgm
   labels:

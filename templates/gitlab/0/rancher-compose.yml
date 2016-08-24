@@ -41,6 +41,7 @@
       label: "GITLAB_SECRETS_DB_KEY_BASE"
       required: true
       default:
+      type: "string"
 
 
 redis:

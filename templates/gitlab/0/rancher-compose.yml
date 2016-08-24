@@ -1,6 +1,6 @@
 .catalog:
   name: "Gitlab"
-  version: "8.10.6-ce.0"
+  version: "8.11.0-ce.1"
   description: |
     Gitlab CE is a free GitHub alternative
   maintainer: Martin Nowicki <>

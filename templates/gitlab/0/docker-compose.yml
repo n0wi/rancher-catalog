@@ -10,7 +10,7 @@ redis:
   volumes:
   - gitlab-redis:/var/lib/redis
   - gitlab-redis-data:/data
-  volume_driver: convoy-nfs
+  volume_driver: ${volume_driver}
 
 gitlab:
   dns_search:
@@ -45,7 +45,7 @@ gitlab:
   dns:
   - ${dns_server_primary}
   - ${dns_server_secondary}
-  image: gitlab/gitlab-ce:8.11.0-ce.1
+  image: gitlab/gitlab-ce:8.11.3-ce.1
   links:
   - redis:redis
   - postgres:postgres
@@ -53,7 +53,7 @@ gitlab:
   - gitlab-config:/etc/gitlab
   - gitlab-logs:/var/log/gitlab
   - gitlab-data:/var/opt/gitlab
-  volume_driver: convoy-nfs
+  volume_driver: ${volume_driver}
 
 postgres:
   environment:
@@ -70,4 +70,4 @@ postgres:
   volumes:
   - gitlab-postgres:/var/lib/postgresql
   - gitlab-postgres-data:/var/lib/postgresql/data
-  volume_driver: convoy-nfs
+  volume_driver: ${volume_driver}

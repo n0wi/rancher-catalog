@@ -1,6 +1,6 @@
 .catalog:
   name: "Gitlab"
-  version: "8.11.0-ce.1"
+  version: "8.11.3-ce.1"
   description: |
     Gitlab CE is a free GitHub alternative
   maintainer: Martin Nowicki <>
@@ -13,16 +13,34 @@
       default: "git.example.com"
       type: "string"
     - variable: "dns_search"
-      description: "DNS search"
+      description: "DNS searchdomain"
       label: "DNS search:"
       required: false
       default:
+      type: "string"
+    - variable: "db_user"
+      description: "Database user"
+      label: "User:"
+      required: true
+      default: "gitlab"
+      type: "string"
+    - variable: "db_name"
+      description: "Database name"
+      label: "DB name:"
+      required: true
+      default: "gitlabhq_production"
       type: "string"
     - variable: "db_password"
       description: "Password for Postgres"
       label: "Password"
       required: false
       default: "password"
+      type: "string"
+    - variable: "secrets_db_key_base"
+      description: "GITLAB_SECRETS_DB_KEY_BASE"
+      label: "GITLAB_SECRETS_DB_KEY_BASE"
+      required: true
+      default:
       type: "string"
     - variable: "dns_server_primary"
       description: "Primary DNS server"
@@ -36,9 +54,9 @@
       required: false
       default:
       type: "string"
-    - variable: "secrets_db_key_base"
-      description: "GITLAB_SECRETS_DB_KEY_BASE"
-      label: "GITLAB_SECRETS_DB_KEY_BASE"
+    - variable: "volume_driver"
+      description: "for example convoy-nfs"
+      label: "Volume driver"
       required: true
       default:
       type: "string"

@@ -35,7 +35,7 @@
       label: "Password"
       required: false
       default: "password"
-      type: "string"
+      type: "password"
     - variable: "secrets_db_key_base"
       description: "GITLAB_SECRETS_DB_KEY_BASE"
       label: "GITLAB_SECRETS_DB_KEY_BASE"
@@ -56,11 +56,43 @@
       type: "string"
     - variable: "volume_driver"
       description: "for example convoy-nfs"
-      label: "Volume driver"
+      label: "Volume driver:"
       required: true
       default:
       type: "string"
-
+    - variable: "ldap_enabled"
+      description: "enable LDAP"
+      label: "LDAP:"
+      required: true
+      default: false
+      type: "boolean"
+    - variable: "ldap_server"
+      description: "LDAP Server"
+      label: "LDAP Server:"
+      required: false
+      default:
+      type: "string"
+    - variable: "bind_method"
+      description: "choose apropriate method"
+      label: "Bind method:"
+      required: true
+      type: enum
+      options:
+        - plain
+        - tls
+        - ssl
+    - variable: "bind_dn"
+      description: "the full DN of the user you will bind with"
+      label: "Bind DN:"
+      required: false
+      default:
+      type: "string"
+    - variable: "bind_dn_pass"
+      description: "Password of the bind user"
+      label: "Bind password:"
+      required: false
+      default:
+      type: "password"
 
 redis:
   scale: 1

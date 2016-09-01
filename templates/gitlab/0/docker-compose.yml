@@ -19,9 +19,9 @@ gitlab:
     DB_ADAPTER: postgres
     DB_HOST: postgres
     DB_PORT: '5432'
-    DB_USER: gitlab
+    DB_USER: ${db_user}
     DB_PASSWORD: ${db_password}
-    DB_NAME: gitlabhq_production
+    DB_NAME: ${db_name}
     REDIS_HOST: redis
     REDIS_PORT: '6379'
     TZ: Europe/Berlin
@@ -29,12 +29,34 @@ gitlab:
     GITLAB_HTTPS: 'true'
     SSL_SELF_SIGNED: 'true'
     GITLAB_HOST: localhost
-    GITLAB_PORT: '10443'
-    GITLAB_SSL_PORT: '10022'
+    GITLAB_PORT: '80'
+    GITLAB_SSL_PORT: '22'
     GITLAB_RELATIVE_URL_ROOT: ''
     GITLAB_SECRETS_DB_KEY_BASE: ${secrets_db_key_base}
     GITLAB_OMNIBUS_CONFIG: |
       # Add any gitlab.rb configuration here, each on its own line
+      gitlab_rails['ldap_enabled'] = ${ldap_enabled}
+      gitlab_rails['ldap_servers'] = YAML.load <<-'EOS' # remember to close this block with 'EOS' below
+        main: # 'main' is the GitLab 'provider ID' of this LDAP server
+          label: 'LDAP'
+          host: ${ldap_server}
+          port: 389
+          uid: 'sAMAccountName'
+          method: ${bind_method} # "tls" or "ssl" or "plain"
+          bind_dn: ${bind_dn}
+          password: ${bind_dn_pass}
+          active_directory: true
+          allow_username_or_email_login: false
+          block_auto_created_users: false
+          base: ''
+          user_filter: ''
+          attributes:
+            username: ['uid', 'userid', 'sAMAccountName']
+            email:    ['mail', 'email', 'userPrincipalName']
+            name:       'cn'
+            first_name: 'givenName'
+            last_name:  'sn'
+      EOS
   domainname: ${gitlab_hostname}
   labels:
     io.rancher.container.pull_image: always
@@ -57,9 +79,9 @@ gitlab:
 
 postgres:
   environment:
-    DB_USER: gitlab
+    DB_USER: ${db_user}
     DB_PASS: ${db_password}
-    DB_NAME: gitlabhq_production
+    DB_NAME: ${db_name}
     DB_EXTENSION: pg_trgm
   labels:
     io.rancher.container.pull_image: always

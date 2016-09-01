@@ -43,8 +43,8 @@ gitlab:
           port: 389
           uid: 'sAMAccountName'
           method: ${bind_method} # "tls" or "ssl" or "plain"
-          bind_dn: ${bind_dn}
-          password: ${bind_dn_pass}
+          bind_dn: '${bind_dn}'
+          password: '${bind_dn_pass}'
           active_directory: true
           allow_username_or_email_login: false
           block_auto_created_users: false

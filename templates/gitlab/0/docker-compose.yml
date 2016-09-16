@@ -15,6 +15,7 @@ redis:
 gitlab:
   dns_search:
   - ${dns_search}
+  entrypoint: update-permissions
   environment:
     DB_ADAPTER: postgres
     DB_HOST: postgres

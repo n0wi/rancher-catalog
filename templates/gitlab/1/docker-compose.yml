@@ -74,6 +74,7 @@ redis:
   image: redis:alpine
   volumes:
   - gitlab-redis:/var/lib/redis
+  - gitlab-redis-data:/data
   volume_driver: ${volume_driver}
 
 postgresql:

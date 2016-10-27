@@ -1,7 +1,6 @@
 gitlab:
   dns_search:
   - ${dns_search}
-  entrypoint: update-permissions
   environment:
     DB_ADAPTER: postgresql
     DB_HOST: postgresql

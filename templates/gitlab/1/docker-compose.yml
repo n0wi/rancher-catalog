@@ -3,8 +3,8 @@ gitlab:
   - ${dns_search}
   entrypoint: update-permissions
   environment:
-    DB_ADAPTER: postgres
-    DB_HOST: postgres
+    DB_ADAPTER: postgresql
+    DB_HOST: postgresql
     DB_PORT: '5432'
     DB_USER: ${db_user}
     DB_PASSWORD: ${db_password}
@@ -26,10 +26,10 @@ gitlab:
       gitlab_rails['ldap_servers'] = YAML.load <<-'EOS' # remember to close this block with 'EOS' below
         main: # 'main' is the GitLab 'provider ID' of this LDAP server
           label: 'LDAP'
-          host: ${ldap_server}
+          host: '${ldap_server}'
           port: 389
           uid: 'sAMAccountName'
-          method: ${bind_method} # "tls" or "ssl" or "plain"
+          method: '${bind_method}' # "tls" or "ssl" or "plain"
           bind_dn: '${bind_dn}'
           password: '${bind_dn_pass}'
           active_directory: true
@@ -48,7 +48,7 @@ gitlab:
   labels:
     io.rancher.container.pull_image: always
     gitlab.app: '1'
-    io.rancher.scheduler.affinity.container_label_soft: gitlab.postgres.db=1
+    io.rancher.scheduler.affinity.container_label_soft: gitlab.postgresql.db=1
   tty: true
   stdin_open: true
   dns:
@@ -57,7 +57,7 @@ gitlab:
   image: gitlab/gitlab-ce:8.13.1-ce.0
   links:
   - redis:redis
-  - postgres:postgres
+  - postgresql:postgresql
   volumes:
   - gitlab-config:/etc/gitlab
   - gitlab-logs:/var/log/gitlab
@@ -70,15 +70,13 @@ redis:
   tty: true
   stdin_open: true
   command:
-  - --loglevel
-  - warning
+  - --loglevel warning
   image: redis:alpine
   volumes:
   - gitlab-redis:/var/lib/redis
-  - gitlab-redis-data:/data
   volume_driver: ${volume_driver}
 
-postgres:
+postgresql:
   environment:
     DB_USER: ${db_user}
     DB_PASS: ${db_password}
@@ -91,6 +89,5 @@ postgres:
   stdin_open: true
   image: postgres:9
   volumes:
-  - gitlab-postgres:/var/lib/postgresql
-  - gitlab-postgres-data:/var/lib/postgresql/data
+  - gitlab-postgresql:/var/lib/postgresql
   volume_driver: ${volume_driver}

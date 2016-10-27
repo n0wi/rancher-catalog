@@ -85,7 +85,7 @@ postgresql:
     DB_EXTENSION: pg_trgm
   labels:
     io.rancher.container.pull_image: always
-    gitlab.postgres.db: '1'
+    gitlab.postgresql.db: '1'
   tty: true
   stdin_open: true
   image: postgres:9

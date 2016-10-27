@@ -48,6 +48,7 @@ gitlab:
     io.rancher.container.pull_image: always
     gitlab.app: '1'
     io.rancher.scheduler.affinity.container_label_soft: gitlab.postgresql.db=1
+  privileged: true
   tty: true
   stdin_open: true
   dns:

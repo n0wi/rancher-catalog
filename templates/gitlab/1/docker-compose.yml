@@ -91,4 +91,5 @@ postgresql:
   image: postgres:9
   volumes:
   - gitlab-postgresql:/var/lib/postgresql
+  - gitlab-postgresql-data:/var/lib/postgresql/data
   volume_driver: ${volume_driver}

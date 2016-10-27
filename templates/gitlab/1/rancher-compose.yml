@@ -93,6 +93,12 @@
       required: false
       default:
       type: "password"
+    - variable: "base dn"
+      description: "Base DN"
+      label: "Base DN:"
+      required: false
+      default:
+      type: "string"
 
 redis:
   scale: 1

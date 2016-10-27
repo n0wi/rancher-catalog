@@ -34,7 +34,7 @@ gitlab:
           active_directory: true
           allow_username_or_email_login: false
           block_auto_created_users: false
-          base: ''
+          base: '${base_dn}'
           user_filter: ''
           attributes:
             username: ['uid', 'userid', 'sAMAccountName']

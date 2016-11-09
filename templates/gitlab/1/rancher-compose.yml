@@ -16,7 +16,7 @@
       description: "DNS searchdomain"
       label: "DNS search:"
       required: false
-      default:
+      default: "example.com"
       type: "string"
     - variable: "db_user"
       description: "Database user"
@@ -37,10 +37,10 @@
       default: "password"
       type: "password"
     - variable: "secrets_db_key_base"
-      description: "GITLAB_SECRETS_DB_KEY_BASE"
+      description: "Secret for securing gitlab DB"
       label: "GITLAB_SECRETS_DB_KEY_BASE"
       required: true
-      default:
+      default: "0123456789abcdef"
       type: "string"
     - variable: "dns_server_primary"
       description: "Primary DNS server"
@@ -55,7 +55,7 @@
       default:
       type: "string"
     - variable: "volume_driver"
-      description: "for example convoy-nfs"
+      description: "for example convoy-nfs or rexray"
       label: "Volume driver:"
       required: true
       default:
@@ -85,7 +85,7 @@
       description: "the full DN of the user you will bind with"
       label: "Bind DN:"
       required: false
-      default:
+      default: "ldapbind@example.com"
       type: "string"
     - variable: "bind_dn_pass"
       description: "Password of the bind user"
@@ -97,7 +97,7 @@
       description: "Base DN"
       label: "Base DN:"
       required: false
-      default:
+      default: "dc=example,dc=com"
       type: "string"
 
 redis:

@@ -93,7 +93,7 @@
       required: false
       default:
       type: "password"
-    - variable: "base dn"
+    - variable: "base_dn"
       description: "Base DN"
       label: "Base DN:"
       required: false

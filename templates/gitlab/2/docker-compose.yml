@@ -43,6 +43,14 @@ gitlab:
             first_name: 'givenName'
             last_name:  'sn'
       EOS
+      gitlab_rails['gitlab_email_enabled'] = ${email_enabled}
+      gitlab_rails['gitlab_email_from'] = '${email_from}'
+      gitlab_rails['gitlab_email_reply_to'] = '${email_reply_to}'
+      gitlab_rails['smtp_enable'] = ${email_enabled}
+      gitlab_rails['smtp_address'] = '${smtp_address}'
+      gitlab_rails['smtp_port'] = ${smtp_port}
+      gitlab_rails['smtp_domain'] = '${smtp_domain}'
+      gitlab_rails['smtp_authentication'] = false
   domainname: ${gitlab_hostname}
   labels:
     io.rancher.container.pull_image: always

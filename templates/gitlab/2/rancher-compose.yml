@@ -99,6 +99,42 @@
       required: false
       default: "dc=example,dc=com"
       type: "string"
+    - variable: "email_enabled"
+      description: "enable email"
+      label: "enable email:"
+      required: true
+      default: false
+      type: "boolean"
+    - variable: "email_from"
+      description: "email from"
+      label: "email from:"
+      required: true
+      default: "gitlab@example.com"
+      type: "string"
+    - variable: "email_reply_to"
+      description: "reply email"
+      label: "reply email:"
+      required: true
+      default: "noreply-gitlab@example.com"
+      type: "string"
+    - variable: "email_address"
+      description: "smtp server"
+      label: "smtp server:"
+      required: true
+      default: "smtp.example.com"
+      type: "string"
+    - variable: "smtp_port"
+      description: "smtp port"
+      label: "smtp port"
+      required: true
+      default: "25"
+      type: "string"
+    - variable: "smtp_domain"
+      description: "smtp domain"
+      label: "smtp domain"
+      required: true
+      default: "example.com"
+      type: "string"
 
 redis:
   scale: 1

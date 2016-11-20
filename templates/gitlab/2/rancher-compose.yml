@@ -117,7 +117,7 @@
       required: true
       default: "noreply-gitlab@example.com"
       type: "string"
-    - variable: "email_address"
+    - variable: "smtpl_address"
       description: "smtp server"
       label: "smtp server:"
       required: true
